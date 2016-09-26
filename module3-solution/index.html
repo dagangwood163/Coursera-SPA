@@ -5,23 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="styles/bootstrap.min.css">
     <link rel="stylesheet" href="styles/styles.css">
+    <script type="text/javascript" src="angular.min.js"></script>
+	<script type="text/javascript" src="app.js"></script>
   </head>
-<body>
-   <div class="container">
+<body ng-app="NarrowItDownApp">
+   <div class="container" ng-controller='NarrowItDownController as vm'>
     <h1>Narrow Down Your Chinese Menu Choice</h1>
 
-    <div class="form-group">
-      <input type="text" placeholder="search term" class="form-control">
-    </div>
-    <div class="form-group narrow-button">
-      <button class="btn btn-primary">Narrow It Down For Me!</button>
+
+    <div class='row'>
+      <div class='col-md-3'>
+        <div class="form-group">
+          <input type="text" placeholder="search term" class="form-control" ng-model="vm.searchTerm">
+        </div>
+      </div>
+      <div class='col-md-4'>
+        <div class="form-group narrow-button">
+          <button class="btn btn-primary" ng-click="vm.narrowIt()">Narrow It Down For Me!</button>
+        </div>
+      </div>
+
+      <div ng-if='vm.loading'> Loading...</div>
     </div>
 
-    <!-- Bonus loader (see Bonus section of the assignment) -->
-    <items-loader-indicator></items-loader-indicator>
+    <div class='row'> 
+      <!-- found-items should be implemented as a component -->
+      <found-items items="vm.found" not-found='vm.notFound' on-remove='vm.removeItem(itemIndex)'> 
 
-    <!-- found-items should be implemented as a component -->
-    <found-items found-items="...." on-remove="...."></found-items>
+      </found-items>
+    </div> 
+    
   </div>
 
 </body>
