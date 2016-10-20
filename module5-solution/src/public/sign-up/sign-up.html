@@ -3,7 +3,7 @@
 <h2>Sign up to our newsletter</h2>
 <br>
     
-<form name='signupForm' novalidate>
+<form name='signupForm' ng-submit="signUpCtrl.submit(signupForm)"novalidate>
 
     <div class="form-group">
         <input class="form-control" type="text" name="firstname" placeholder="Your first name"
@@ -46,15 +46,15 @@
             Please enter a valid shortname for your favorite dish!
           </span>
 -->
-          <span class="help-block" ng-if="signUpCtrl.dishError">
+          <span class="help-block" ng-if="signUpCtrl.dishError && !signupForm.favorite.$touched">
             No such menu number exists!
           </span>
     </div>
     
     <br>
     
-    <button class="btn btn-default" ng-disabled="signupForm.$invalid" ng-click="signUpCtrl.submit()">Submit</button>
-    <span class="help-block" ng-if="signUpCtrl.success">Your information has been saved!</span> 
+    <button class="btn btn-default" ng-disabled="signupForm.$invalid">Submit</button>
+    <span class="help-block" ng-if="signUpCtrl.success && !signupForm.favorite.$touched">Your information has been saved!</span> 
 
 </form>
 

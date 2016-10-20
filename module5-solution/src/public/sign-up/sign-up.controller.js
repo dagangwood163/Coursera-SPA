@@ -13,35 +13,33 @@ function SignUpController(UserService) {
   $ctrl.dishError = false;
   $ctrl.userLoggedIn = UserService.isUserLoggedIn();
   $ctrl.success =false;
-    
+
+
   $ctrl.registerUser = function(){
     $ctrl.userLoggedIn = true;
     UserService.registerUser($ctrl.user);
   }
   
-  $ctrl.submit = function(){
+  $ctrl.submit = function(signupForm){
       
-      $ctrl.dishError = false;
-      $ctrl.success =false;
+      signupForm.$setUntouched();    
       
       if ($ctrl.user.favorite_shortname){
       $ctrl.dish = UserService.getDishByShortname($ctrl.user.favorite_shortname).then(function(result){
       $ctrl.user.favorite = result;
       $ctrl.registerUser();
       $ctrl.success =true;
-          //$ctrl.signupForm.$setPristine();
-      //console.log("1");
+      $ctrl.dishError = false;      
       })
       .catch(function(err) {
+      $ctrl.success = false;    
       $ctrl.dishError = true;
-      //console.log("2");      
        })
       } 
       else {      
       $ctrl.registerUser();
       $ctrl.success =true;
-          //$ctrl.signupForm.$setPristine();
-      //console.log("3");
+      $ctrl.dishError = false;      
       }
   };
     
