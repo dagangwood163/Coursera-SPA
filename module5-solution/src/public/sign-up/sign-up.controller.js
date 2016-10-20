@@ -23,23 +23,22 @@ function SignUpController(UserService) {
   $ctrl.submit = function(signupForm){
       
       signupForm.$setUntouched();    
+      $ctrl.dishError = false;
+      $ctrl.success =false;
       
       if ($ctrl.user.favorite_shortname){
       $ctrl.dish = UserService.getDishByShortname($ctrl.user.favorite_shortname).then(function(result){
       $ctrl.user.favorite = result;
       $ctrl.registerUser();
       $ctrl.success =true;
-      $ctrl.dishError = false;      
       })
       .catch(function(err) {
-      $ctrl.success = false;    
       $ctrl.dishError = true;
        })
       } 
       else {      
       $ctrl.registerUser();
       $ctrl.success =true;
-      $ctrl.dishError = false;      
       }
   };
     
